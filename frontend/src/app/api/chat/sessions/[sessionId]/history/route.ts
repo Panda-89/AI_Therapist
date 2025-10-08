@@ -2,13 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
-interface Params {
-  sessionId: string;
-}
+type RouteContext = {
+  params: {
+    sessionId: string; // This MUST match the folder name [sessionId]
+  };
+};
 
 export async function GET(
   req: NextRequest,
-  context: { params: Params } 
+  context: RouteContext
 ) {
   try {
     const { sessionId } = context.params;
