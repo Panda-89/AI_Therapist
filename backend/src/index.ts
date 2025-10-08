@@ -20,12 +20,26 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+    "https://ai-therapist-one-wheat.vercel.app",
+    "https://ai-therapist-nm2emihex-panda-89s-projects.vercel.app",
+    "https://ai-therapist-git-main-panda-89s-projects.vercel.app"
+  ];
+  
+
 //middleware
 app.use(cors({
-    origin: "https://ai-therapist-cztpu0tig-panda-89s-projects.vercel.app",
+    origin: function(origin, callback) {
+      if (!origin) return callback(null, true); // allow Postman, server-side requests, etc.
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-}));
+    credentials: true
+  }));
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
