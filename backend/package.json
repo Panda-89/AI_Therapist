@@ -1,12 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend for AI therapy agent",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "start": "node dist/index.ts",
+    "dev": "nodemon src/index.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
