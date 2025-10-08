@@ -21,7 +21,7 @@ dotenv.config();
 const app = express();
 
 //middleware
-app.options("*", cors({
+app.options("/*", cors({
     origin: "https://ai-therapist-cztpu0tig-panda-89s-projects.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
