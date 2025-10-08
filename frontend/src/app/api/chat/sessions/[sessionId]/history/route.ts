@@ -9,7 +9,6 @@ export async function GET(
   try {
     const { sessionId } = params;
     console.log(`Getting chat history for session ${sessionId}`);
-
     const response = await fetch(
       `${BACKEND_API_URL}/chat/sessions/${sessionId}/history`,
       {
@@ -33,23 +32,12 @@ export async function GET(
     console.log("Chat history retrieved successfully:", data);
 
     // Format the response to match the frontend's expected format
-    const formattedMessages = (data as unknown[]).map((msg) => {
-        if (
-          typeof msg === "object" &&
-          msg !== null &&
-          "role" in msg &&
-          "content" in msg &&
-          "timestamp" in msg
-        ) {
-          const { role, content, timestamp } = msg as {
-            role: string;
-            content: string;
-            timestamp: string | number | Date;
-          };
-          return { role, content, timestamp };
-        }
-        throw new Error("Invalid message format");
-      });
+    const formattedMessages = data.map((msg: any) => ({
+      role: msg.role,
+      content: msg.content,
+      timestamp: msg.timestamp,
+    }));
+
 
     return NextResponse.json(formattedMessages);
   } catch (error) {
