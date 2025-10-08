@@ -4,10 +4,10 @@ const BACKEND_API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
+  context: { params: any } 
 ) {
   try {
-    const { sessionId } = params;
+    const { sessionId } = context.params as { sessionId: string };
     console.log(`Getting chat history for session ${sessionId}`);
 
     const response = await fetch(
