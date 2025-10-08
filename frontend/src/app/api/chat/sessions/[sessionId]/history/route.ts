@@ -2,18 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND_API_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL
 
-type ChatMessage = {
-  role: "user" | "assistant" | "system";
-  content: string;
-  timestamp: string;
-};
-
-type ApiMessage = {
-  role: string;
-  content: string;
-  timestamp: string;
-};
-
 export async function GET(
   req: NextRequest,
   { params }: { params: { sessionId: string } } 
@@ -40,12 +28,12 @@ export async function GET(
       );
     }
 
-    const data = (await response.json()) as ApiMessage[];
+    const data = await response.json();
     console.log("Chat history retrieved successfully:", data);
 
     // Format the response to match the frontend's expected format
-    const formattedMessages: ChatMessage[] = data.map((msg) => ({
-      role: msg.role as ChatMessage["role"],
+    const formattedMessages = data.map((msg: any) => ({
+      role: msg.role,
       content: msg.content,
       timestamp: msg.timestamp,
     }));
