@@ -28,6 +28,10 @@ app.use(express.json());
 
 app.use("/api/inngest", serve({ client: inngest, functions: inngestFunctions }));
 
+app.get("/", (req: Request, res: Response) => {
+    res.send("AI Therapist backend is running successfully 🚀");
+  });
+
 
 app.use("/auth", authRouter);
 app.use("/chat", chatRouter);
