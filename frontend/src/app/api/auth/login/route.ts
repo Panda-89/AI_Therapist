@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const API_URL =
-    process.env.BACKEND_API_URL;
+    process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
   try {
     const res = await fetch(`${API_URL}/auth/login`, {
